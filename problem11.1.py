@@ -1,11 +1,6 @@
-# Write a program that counts how many vowels are in a given string.
+#Write a function full_name(first, last) that takes first name and last name as parameters and returns a single string in the format "First Last".
 
-sentence = "a bcd e fh i jklmn o pqrst u vwxyz"
-total = 0
-vowels = ['a', 'e', 'i', 'o', 'u']
+def full_name(first, last):
+    return f"{first} {last}"
 
-for char in sentence.lower(): 
-    if(char in vowels):
-        total += 1
-
-print(f"There are {total} vowels in this sentence")
+print(full_name("Dhams", "Mak"))

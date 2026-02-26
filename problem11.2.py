@@ -1,8 +1,12 @@
-# Take a user input string and check if it is a palindrome (same forwards and backwards).
+''' 
+Write a function calculate_area(length, width=10) that returns the area of a rectangle. Test it by calling the function with:
 
-string1 = "922229"
+Both length and width
+Only length (use default width)
+'''
+def calculate_area(length, width=10):
+    return length * width
 
-if(string1 == string1[::-1]):
-    print("The string is a Palindrome")
-else:
-    print("The string is not a Palindrome")
+
+print(f"The area of this rectangle is {calculate_area(9, 27)}")
+print(calculate_area(18))

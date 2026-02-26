@@ -1,7 +1,8 @@
-# Find the index of the word "Python" in sentence.
+# Write a function square(num) that returns the square of a given number. Test it with different numbers.
 
-sentence = "Learning Python"
-          # 0123456789
+def square(x):
+    return x*x
 
-ind = sentence.index("Python")
-print(ind)
+print(square(9))
+print(square(4))
+print(square(5))

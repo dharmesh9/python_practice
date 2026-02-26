@@ -1,8 +1,6 @@
-'''
-Given sentence = "Dharmesh is 65 years old.", replace "65" with "25" and print it.
-'''
+# Write a function greet() that prints "Hello, Humans!!!" when called.
 
-sentence = "Dharmesh is 65 years old."
+def greet():
+    print("Hello, humans!!!")
 
-new = sentence.replace("65", "25")
-print(new)
+greet()
