@@ -696,3 +696,65 @@ JOIN t1 b
  AND a.customer_id < b.customer_id
 GROUP BY a.customer_id, b.customer_id, a.season
 ORDER BY shared_season_purchases DESC;
+
+-- Q96. What is the probability of a customer using a discount based on category?
+SELECT 
+    category,
+    AVG(CASE 
+            WHEN discount_applied = 'Yes' THEN 1
+            ELSE 0
+        END) AS discount_probability
+FROM t1
+GROUP BY category
+ORDER BY discount_probability DESC;
+
+-- Q97. What is the probability of a customer giving a high rating based on product?
+SELECT 
+    item_purchased,
+    AVG(CASE 
+            WHEN CAST(review_rating AS UNSIGNED) >= 4 THEN 1
+            ELSE 0
+        END) AS high_rating_probability
+FROM t1
+GROUP BY item_purchased
+ORDER BY high_rating_probability DESC;
+
+-- Q98. What is the probability of a customer buying again based on past frequency?
+SELECT 
+    previous_purchases,
+    COUNT(*) AS customers,
+    COUNT(*) * 1.0 / SUM(COUNT(*)) OVER () AS probability
+FROM t1
+GROUP BY previous_purchases
+ORDER BY previous_purchases;
+
+-- Q99. Which customers are most likely to churn (low frequency + low spend)?
+SELECT 
+    customer_id,
+    SUM(purchase_amount) AS total_spent,
+    MAX(previous_purchases) AS purchase_history
+FROM t1
+GROUP BY customer_id
+HAVING MAX(previous_purchases) <= 2
+   AND SUM(purchase_amount) < (
+        SELECT AVG(purchase_amount)
+        FROM t1
+   )
+ORDER BY total_spent;
+
+-- Q100. Which customers are most likely to upgrade to subscription (high spend + frequent orders)?
+SELECT 
+    customer_id,
+    SUM(purchase_amount) AS total_spent,
+    MAX(previous_purchases) AS purchase_history
+FROM t1
+GROUP BY customer_id
+HAVING MAX(previous_purchases) > (
+        SELECT AVG(previous_purchases)
+        FROM t1
+      )
+AND SUM(purchase_amount) > (
+        SELECT AVG(purchase_amount)
+        FROM t1
+      )
+ORDER BY total_spent DESC;
