@@ -1,5 +1,5 @@
 # Define a class named Customer
-class Customer:
+class Perosn:
     
     # Constructor to initialize private variables
     def __init__(self):
